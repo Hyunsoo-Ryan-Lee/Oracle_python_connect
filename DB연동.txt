@@ -1,0 +1,74 @@
+DB 연동
+
+1. 실습 준비
+    1. db설치 및 실행중
+    2. python 개발 환경 구축
+        anaconda 설치
+
+python 기반의 db 연동 개발
+    1) 오라클 접속
+        db의 ip/id/pw 개별 DB별 별칭
+        로컬 시스템에서 축약된 표현 : id/pw/dns
+         - SCOTT/TIGER/XE, hr/hr/XE
+
+    2) 접속된 db에 sql 문장 실행
+    3) 실행된 sql 문장 결과값을 활용
+    4) 사용했던 자원들 반납
+        - 만약 반납 안 할 경우 사용 안하는 db 접속 기능의 객체들이 쓰레기 상태로 메모리에 잔존
+        - 시스템 자원 절약 측면에서 불필요한 리소스 낭비
+
+
+Python의 특징
+    파이썬 내부적으로 모든 타입을 객체 타입으로 관리
+    객체 - 데이터와 기능을 보유한 구조
+
+
+실습 확장 단계
+    - CRUD 로직별로 method 설계하여 실행해본다.
+
+
+
+--- 2day ---
+1. 실습 단계
+    1단계. CRUD 구현된 함수는 별도의 모듈로 개발 & crud 모듈을 사용하는 또 다른 파일 개발
+        2개 이상의 py 파일 생성
+
+    2단계. oracle 기반 존재하는 table의 데이터값을 명확하게 구분하면서 사용 가능한 구조의 class
+        Class -> 데이터로 메모리에 저장(객체 생성, instance) 가능한 객체 생성
+        -> 다수의 row 값들 활용시에는 다수의 객체 생성
+
+        예시 : 버튼 클릭시 모든 고객 정보를 보는 화면 구성
+            버튼 : HTML
+            클릭시 server에 요청 : java script & 비동기 mechanism
+            server 관점에서 요청 & 응답 받음 : python 기반의 http 통신 기술인 flask
+            python & sql DB 연동 
+
+    3단계. MVC pattern (Model, View, Controller의 약자. 하나의 애플리케이션, 프로젝트를 구성할 때 그 구성요소를 세가지의 역할로 구분한 패턴)
+        - 정형화된 모든 프로그램 즉, 언어 구분없이 권장하는 구조
+        - 코드의 분업 구조 (대부분의 곳에서 다 쓰임)
+        - 너무 개성있게 코드를 짜면 안됨. 가독성 떨어짐 방지/유지보수를 원활히
+        - 참고
+            사내 framework(표준화된 솔루션, 강제성있는 동일한 구조)
+            python 기반의 django, java 기반의 spring
+
+    
+2. MVC pattern
+    1. M - Model
+        실제 data를 조작하는 기능이 주
+        구현 단계 : db와 실제 소통하는 part
+        DAO, DTO
+
+    2. V - View
+        화면 담당 / presentation logic
+        front end - html/css/java script
+        
+    3. C - Controller
+        View로부터 요청을 받아 Model에게 업무 수행 처리 실행 시키는 중재자, 조절자 기능의 logic
+
+
+Value Object Pattern
+    - 데이터를 표현하는 구조의 class
+    - 모델 핵심 로직에서 생성해서 View인 화면 출력 로직에게 client에게 출력하게끔 전송하게 되는 구조.
+
+Data Access Object
+    - sql 문장을 활용하면서 실제 DB와 소통을 전담하는 로직의 class
